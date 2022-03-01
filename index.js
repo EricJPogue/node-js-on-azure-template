@@ -9,12 +9,21 @@ const port = process.env.PORT || 3000
 // Use Express to publish static HTML, CSS, and JavaScript files that run in the browser. 
 app.use(express.static(__dirname + '/static'))
 
+// Everything below is being processed in Node.js running on the server.
+
 // Implement a custom About page.
 app.get('/about', (request, response) => {
 	response.type('text/plain')
 	response.send('About web page.')
 })
 
+// Return the value of 2 plus 2.
+app.get('/2plus2', (request, response) => {
+	response.type('text/plain')
+	response.send('4')
+})
+
+// Test a variety of functions.
 app.get('/test', (request, response) => {
     // Write the request to the log. 
     console.log(request);

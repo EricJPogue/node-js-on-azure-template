@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dog List</title>
+</head>
+<body>
+
+<h1>Accessing Remote Data and Functionality</h1>
+<p>We may want to access remote data and functionality from servers we do not maintain. For example we may want to 
+create a list of dog breeds and their associated pictures.</p>
+
+For more details on how this page was created see
+<a href="https://www.youtube.com/watch?v=AVmGmLFcukM">Dogs, JavaScript & An API 🐶 Fetch, Promises & Async Await</a><br /><br />
+
+<h3>Infinite Dog List</h3>
+<div id="breed"></div><br>
+<div id="photo1"></div>
+<div id="photo2"></div>
+
+<script>
+	async function createBreedList() {
+		const response = await fetch("https://dog.ceo/api/breeds/list/all")
+		const breedList = await response.json()
+
+		// Note that this line below utilizing a template literal which utilize back ticks (``).
+		document.getElementById("breed").innerHTML = `
+			<select onchange="loadByBreed(this.value)">
+				<option>Choose a dog breed...</option>
+				${Object.keys(breedList.message).map(function(breed) { 
+					return `<option>${breed}</option>`}).join('')
+				}
+			</select>`
+	}
+
+	async function loadByBreed(breed) {
+		if (breed != 'Choose a dog breed...') {
+			const response = await fetch(`https://dog.ceo/api/breed/${breed}/images`)
+    		const data = await response.json()
+
+			document.getElementById("photo1").innerHTML = `<img src="${data.message[0]}" height="400">`
+			document.getElementById("photo2").innerHTML = `<img src="${data.message[1]}" height="400">`
+		}
+	}
+
+	createBreedList()
+</script>
+</body>
+</html>
