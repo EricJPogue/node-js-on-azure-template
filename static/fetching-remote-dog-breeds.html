@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Dog List</title>
-</head>
-<body>
+	<head>
+		<title>Dog List</title>
+	</head>
 
+<body>
 <h1>Accessing Remote Data and Functionality</h1>
-<p>We may want to access remote data and functionality from servers we do not maintain. For example we may want to 
-create a list of dog breeds and their associated pictures.</p>
+<p>We may want to access remote data and functionality from servers we do not maintain. For example 
+we may want to create a list of dog breeds and their associated pictures.</p>
 
 For more details on how this page was created see
-<a href="https://www.youtube.com/watch?v=AVmGmLFcukM">Dogs, JavaScript & An API 🐶 Fetch, Promises & Async Await</a><br /><br />
+<a href="https://www.youtube.com/watch?v=AVmGmLFcukM">Dogs, JavaScript & An API 🐶 Fetch, Promises & 
+Async Await</a> and the associated <a href="https://github.com/public-apis/public-apis">Public 
+APIs</a><br /><br />
 
 <h3>Infinite Dog List</h3>
 <div id="breed"></div><br>
@@ -18,16 +20,17 @@ For more details on how this page was created see
 <div id="photo2"></div>
 
 <script>
+	// JavaScript code starts here.
 	async function createBreedList() {
-		const response = await fetch("https://dog.ceo/api/breeds/list/all")
+		const response = await fetch('https://dog.ceo/api/breeds/list/all')
 		const breedList = await response.json()
 
-		// Note that this line below utilizing a template literal which utilize back ticks (``).
+		// Note that this line below utilizing a template literal which utilizes back ticks (``).
 		document.getElementById("breed").innerHTML = `
 			<select onchange="loadByBreed(this.value)">
 				<option>Choose a dog breed...</option>
 				${Object.keys(breedList.message).map(function(breed) { 
-					return `<option>${breed}</option>`}).join('')
+					return `<option>${breed}</option>`}).join("")
 				}
 			</select>`
 	}
@@ -42,7 +45,9 @@ For more details on how this page was created see
 		}
 	}
 
+	// JavaScript function that gets called automatically when the HTML page is loaded.
 	createBreedList()
 </script>
+
 </body>
 </html>

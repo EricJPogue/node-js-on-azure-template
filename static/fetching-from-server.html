@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fetching</title>
+</head>
+<body>
+
+<h1>Accessing Data and Functionality on the Node.js Server</h1>
+<p>Fetching data and calling server-side functions can be implemented using JavaScript and Fetch() command.</p>
+
+<button type="button" onclick="fetchAbout()">Fetch About</button>
+<div id="fetch-about-result"></div>
+<br><br>
+
+<button type="button" onclick="fetch2Plus2()">Fetch 2plus2</button>
+<div id="fetch-2plus2-result"></div>
+<br><br>
+
+Add two integers on the Node.js server.<br />
+<select onchange="addTwoIntegers()" id="x-value">
+	<option>1</option>
+	<option>2</option>
+	<option>3</option>
+	<option>100</option>
+</select> +
+
+<select onchange="addTwoIntegers()" id="y-value">
+	<option>1</option>
+	<option>2</option>
+	<option>3</option>
+	<option>100</option>
+</select> = 
+<input id="sum" disabled></input><br /><br /><br />
+
+<button type="button" onclick="calculateBMI()">Calculate BMI</button>
+<div id="bmi-result"></div>
+<br><br>
+
+
+<br><br>
+
+<script>
+	let fetchAboutCounter = 0
+	async function fetchAbout() {
+		fetchAboutCounter++
+		const response = await fetch("/about")
+		const responseText = await response.text()
+		document.getElementById("fetch-about-result").innerHTML = responseText + " ("+fetchAboutCounter+")"
+	}
+
+	let fetch2plus2Counter = 0
+	async function fetch2Plus2() {
+		fetch2plus2Counter++
+		const response = await fetch("/2plus2")
+		const responseText = await response.text()
+		document.getElementById("fetch-2plus2-result").innerHTML = responseText + " ("+fetch2plus2Counter+")"
+	}
+
+	async function addTwoIntegers() {
+		const x = document.getElementById("x-value").value
+		const y = document.getElementById("y-value").value
+
+		// Note the URL (fetch) string will look something like '/add-two-integers?x=2&y=1' when it is sent.
+		const fetchString = "/add-two-integers?x="+x+"&y="+y
+		const response = await fetch(fetchString)
+		const responseText = await response.text()
+		document.getElementById("sum").value = responseText
+	}
+
+	async function calculateBMI() {
+		// Approximate height and weight for a man in the US. 
+		const response = await fetch('/calculate-bmi?feet=5&inches=10&lbs=186')
+		const responseText = await response.text()
+		console.log(responseText)
+		document.getElementById("bmi-result").innerHTML = responseText
+	}
+
+	addTwoIntegers()
+</script>
+</body>
+</html>

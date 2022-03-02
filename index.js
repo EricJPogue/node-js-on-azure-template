@@ -9,18 +9,48 @@ const port = process.env.PORT || 3000
 // Use Express to publish static HTML, CSS, and JavaScript files that run in the browser. 
 app.use(express.static(__dirname + '/static'))
 
-// Everything below is being processed in Node.js running on the server.
-
+// The app.get functions below are being processed in Node.js running on the server.
 // Implement a custom About page.
 app.get('/about', (request, response) => {
+	console.log('Calling "/about" on the Node.js server.')
 	response.type('text/plain')
 	response.send('About web page.')
 })
 
 // Return the value of 2 plus 2.
 app.get('/2plus2', (request, response) => {
+	console.log('Calling "/2plus2" on the Node.js server.')
 	response.type('text/plain')
 	response.send('4')
+})
+
+// Add x and y which are both passed in on the URL. 
+app.get('/add-two-integers', (request, response) => {
+	console.log('Calling "/add-two-integers" on the Node.js server.')
+	var inputs = url.parse(request.url, true).query
+	let x = parseInt(inputs.x)
+	let y = parseInt(inputs.y)
+	let sum = x + y
+	response.type('text/plain')
+	response.send(sum.toString())
+})
+
+// Possible template for calculating BMI using height in feet/inches and weight in pounds.
+app.get('/calculate-bmi', (request, response) => {
+	console.log('Calling "/calculate-bmi" on the Node.js server.')
+	var inputs = url.parse(request.url, true).query
+	const heightFeet = parseInt(inputs.feet)
+	const heightInches = parseInt(inputs.inches)
+	const weight = parseInt(inputs.lbs)
+
+	console.log('Height:' + heightFeet + '\'' + heightInches + '\"')
+	console.log('Weight:' + weight + ' lbs.')
+
+	// Todo: Implement unit conversions and BMI calculations.
+	// Todo: Return BMI instead of Todo message.
+
+	response.type('text/plain')
+	response.send('Todo: Implement "/calculate-bmi"')
 })
 
 // Test a variety of functions.
@@ -66,7 +96,7 @@ app.use((err, request, response, next) => {
 })
 
 app.listen(port, () => console.log(
-  `Express started on http://localhost:${port}; ` +
+  `Express started at \"http://localhost:${port}\"\n` +
   `press Ctrl-C to terminate.`)
 )
 
