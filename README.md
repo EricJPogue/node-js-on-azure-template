@@ -1,2 +1,3 @@
-# Node.js and Express Hosted on Microsoft Azure
-The repository is intended to provide the necessary files to create a basic Node.js and Express website that will be hosted on Microsoft Azure.
+# Node.js and Express Hosted on Microsoft Azure Template
+This repository serves as a template that can be used to create a Node.js and Express based website that can easily
+be hosted on Microsoft Azure.

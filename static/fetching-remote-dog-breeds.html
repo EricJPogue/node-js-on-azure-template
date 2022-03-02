@@ -5,13 +5,12 @@
 	</head>
 
 <body>
-<h1>Accessing Remote Data and Functionality</h1>
-<p>We may want to access remote data and functionality from servers we do not maintain. For example 
-we may want to create a list of dog breeds and their associated pictures.</p>
+<h1>Accessing Remote Application Programming Interfaces (APIs)</h1>
+<p>Accessing remote APIs is demonstrated below by utilizing an API to get dog breeds and dog photos.</p>
 
 For more details on how this page was created see
 <a href="https://www.youtube.com/watch?v=AVmGmLFcukM">Dogs, JavaScript & An API 🐶 Fetch, Promises & 
-Async Await</a> and the associated <a href="https://github.com/public-apis/public-apis">Public 
+Async Await</a> and <a href="https://github.com/public-apis/public-apis">Public 
 APIs</a><br /><br />
 
 <h3>Infinite Dog List</h3>
@@ -39,7 +38,6 @@ APIs</a><br /><br />
 		if (breed != 'Choose a dog breed...') {
 			const response = await fetch(`https://dog.ceo/api/breed/${breed}/images`)
     		const data = await response.json()
-
 			document.getElementById("photo1").innerHTML = `<img src="${data.message[0]}" height="400">`
 			document.getElementById("photo2").innerHTML = `<img src="${data.message[1]}" height="400">`
 		}
