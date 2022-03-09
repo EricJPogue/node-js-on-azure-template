@@ -35,7 +35,7 @@ app.get('/add-two-integers', (request, response) => {
 	response.send(sum.toString())
 })
 
-// Possible template for calculating BMI using height in feet/inches and weight in pounds.
+// Template for calculating BMI using height in feet/inches and weight in pounds.
 app.get('/calculate-bmi', (request, response) => {
 	console.log('Calling "/calculate-bmi" on the Node.js server.')
 	var inputs = url.parse(request.url, true).query
@@ -80,14 +80,14 @@ app.get('/test', (request, response) => {
     response.end('<h3>The End.</h3>');
 })
 
-// custom 404 page
+// Custom 404 page.
 app.use((request, response) => {
   response.type('text/plain')
   response.status(404)
   response.send('404 - Not Found')
 })
 
-// custom 500 page
+// Custom 500 page.
 app.use((err, request, response, next) => {
   console.error(err.message)
   response.type('text/plain')
@@ -100,4 +100,34 @@ app.listen(port, () => console.log(
   `press Ctrl-C to terminate.`)
 )
 
+// Return Batman as JSON.
+var spiderMan = {
+	"firstName":"Bruce",
+	"lastName":"Wayne",
+	"preferredName":"Batman",
+	"email":"darkknight@lewisu.edu",
+	"phoneNumber":"800-bat-mann",
+	"city":"Gotham",
+	"state":"NJ",
+	"zip":"07101",
+	"lat":"40.73",
+	"lng":"-74.17",
+	"favoriteHobby":"Flying",
+	"class":"cpsc-24700-001",
+	"room":"AS-104-A",
+	"startTime":"3pm CT",
+	"seatNumber":"",
+	"inPerson":[
+		"Monday",
+		"Wednesday"
+	],
+	"virtual":[
+		"Friday"
+	]
+}
 
+app.get('/batman', (request, response) => {
+	console.log('Calling "/batman" on the Node.js server.')
+	response.type('application/json')
+	response.send(JSON.stringify(spiderMan, null, 4))
+})
