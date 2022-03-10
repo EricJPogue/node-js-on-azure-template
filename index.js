@@ -103,7 +103,7 @@ var spiderMan = {
 	"favoriteHobby":"Flying",
 	"class":"cpsc-24700-001",
 	"room":"AS-104-A",
-	"startTime":"3pm CT",
+	"startTime":"2 PM CT",
 	"seatNumber":"",
 	"inPerson":[
 		"Monday",
