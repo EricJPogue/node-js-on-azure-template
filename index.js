@@ -5,6 +5,8 @@ var url = require('url');
 var dt = require('./date-time');
 
 const port = process.env.PORT || 3000
+const majorVersion = 1
+const minorVersion = 2
 
 // Use Express to publish static HTML, CSS, and JavaScript files that run in the browser. 
 app.use(express.static(__dirname + '/static'))
@@ -14,7 +16,13 @@ app.use(express.static(__dirname + '/static'))
 app.get('/about', (request, response) => {
 	console.log('Calling "/about" on the Node.js server.')
 	response.type('text/plain')
-	response.send('About web page.')
+	response.send('About Node.js on Azure Template.')
+})
+
+app.get('/version', (request, response) => {
+	console.log('Calling "/version" on the Node.js server.')
+	response.type('text/plain')
+	response.send('Version: '+majorVersion+'.'+minorVersion)
 })
 
 // Return the value of 2 plus 2.
@@ -80,26 +88,6 @@ app.get('/test', (request, response) => {
     response.end('<h3>The End.</h3>');
 })
 
-// Custom 404 page.
-app.use((request, response) => {
-  response.type('text/plain')
-  response.status(404)
-  response.send('404 - Not Found')
-})
-
-// Custom 500 page.
-app.use((err, request, response, next) => {
-  console.error(err.message)
-  response.type('text/plain')
-  response.status(500)
-  response.send('500 - Server Error')
-})
-
-app.listen(port, () => console.log(
-  `Express started at \"http://localhost:${port}\"\n` +
-  `press Ctrl-C to terminate.`)
-)
-
 // Return Batman as JSON.
 var spiderMan = {
 	"firstName":"Bruce",
@@ -131,3 +119,23 @@ app.get('/batman', (request, response) => {
 	response.type('application/json')
 	response.send(JSON.stringify(spiderMan, null, 4))
 })
+
+// Custom 404 page.
+app.use((request, response) => {
+  response.type('text/plain')
+  response.status(404)
+  response.send('404 - Not Found')
+})
+
+// Custom 500 page.
+app.use((err, request, response, next) => {
+  console.error(err.message)
+  response.type('text/plain')
+  response.status(500)
+  response.send('500 - Server Error')
+})
+
+app.listen(port, () => console.log(
+  `Express started at \"http://localhost:${port}\"\n` +
+  `press Ctrl-C to terminate.`)
+)
